@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostingWebapi.Infrastructure", "HostingWebapi.Infrastructure\HostingWebapi.Infrastructure.csproj", "{F9BC90A8-3C68-4553-A210-5054FF3A8B7E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{90D91A70-F1A0-454D-A0FC-30F9FF31FA47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestService", "Tests\TestService\TestService.csproj", "{AD95C5F2-593C-4DA0-BB93-80FD58AF4747}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F9BC90A8-3C68-4553-A210-5054FF3A8B7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9BC90A8-3C68-4553-A210-5054FF3A8B7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9BC90A8-3C68-4553-A210-5054FF3A8B7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9BC90A8-3C68-4553-A210-5054FF3A8B7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD95C5F2-593C-4DA0-BB93-80FD58AF4747}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD95C5F2-593C-4DA0-BB93-80FD58AF4747}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD95C5F2-593C-4DA0-BB93-80FD58AF4747}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD95C5F2-593C-4DA0-BB93-80FD58AF4747}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AD95C5F2-593C-4DA0-BB93-80FD58AF4747} = {90D91A70-F1A0-454D-A0FC-30F9FF31FA47}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21931976-D091-46E5-A4E3-F3BA29D6DB9C}
+	EndGlobalSection
+EndGlobal
