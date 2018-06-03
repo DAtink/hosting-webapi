@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 
 namespace HostingWebapi.Infrastructure
@@ -35,11 +36,23 @@ namespace HostingWebapi.Infrastructure
       services.AddMvc()
               .AddApplicationPart(_serviceAssembly)
               .AddControllersAsServices();
+
+      services.AddSwaggerGen(c =>
+      {
+        c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+      });
     }
 
     private void ConfigureApp(IApplicationBuilder app)
     {
       app.UseMvcWithDefaultRoute();
+      app.UseStaticFiles();
+
+      app.UseSwagger();
+      app.UseSwaggerUI(c =>
+      {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+      });
     }
 
     public IWebHost BuildWebHost(string[] args)
