@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore;
+﻿using HostingWebapi.Infrastructure.SimpleInjector;
+using HostingWebapi.Infrastructure.Swagger;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Swagger;
+using SimpleInjector;
 using System.Reflection;
 
 namespace HostingWebapi.Infrastructure
 {
   public class HostBuilder
   {
+    private readonly Container _container;
     private readonly Assembly _serviceAssembly;
 
     private IHostingEnvironment HostingEnvironment { get; set; }
@@ -18,6 +21,7 @@ namespace HostingWebapi.Infrastructure
     protected HostBuilder(Assembly serviceAssembly)
     {
       _serviceAssembly = serviceAssembly;
+      _container = new Container();
     }
 
     public static HostBuilder Create()
@@ -34,25 +38,29 @@ namespace HostingWebapi.Infrastructure
     private void ConfigureServices(IServiceCollection services)
     {
       services.AddMvc()
-              .AddApplicationPart(_serviceAssembly)
-              .AddControllersAsServices();
+              .AddApplicationPart(_serviceAssembly);
 
-      services.AddSwaggerGen(c =>
-      {
-        c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
-      });
+      services.AddSwagger();
+
+      services.IntegrateSimpleInjector(_container);
     }
 
     private void ConfigureApp(IApplicationBuilder app)
     {
+      app.InitializeContainer(_container);
+
+      // NOTE: Add custom middleware
+      // app.UseMiddleware<CustomMiddleware1>(container);
+      // app.UseMiddleware<CustomMiddleware2>(container);
+
+      _container.Verify();
+
+      // ASP.NET default stuff here
       app.UseMvcWithDefaultRoute();
       app.UseStaticFiles();
 
+      // Swagger
       app.UseSwagger();
-      app.UseSwaggerUI(c =>
-      {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-      });
     }
 
     public IWebHost BuildWebHost(string[] args)
