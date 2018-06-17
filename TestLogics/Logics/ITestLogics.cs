@@ -1,4 +1,4 @@
-﻿namespace TestService.Logics
+﻿namespace TestLogics.Logics
 {
   public interface ITestLogics
   {

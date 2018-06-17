@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TestService.Logics;
+using TestLogics.Logics;
 
 namespace TestService.Controllers
 {

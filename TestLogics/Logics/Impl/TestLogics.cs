@@ -1,4 +1,4 @@
-﻿namespace TestService.Logics.Impl
+﻿namespace TestLogics.Logics.Impl
 {
   public class TestLogics : ITestLogics
   {

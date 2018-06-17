@@ -4,11 +4,11 @@ using TestLogics.Logics;
 
 namespace TestService
 {
-  public class TestServicePackage : IPackage
+  public class TestLogicsPackage : IPackage
   {
     public void RegisterServices(Container container)
     {
-      container.Register<IExternal, External.External>(Lifestyle.Singleton);
+      container.Register<ITestLogics, TestLogics.Logics.Impl.TestLogics>(Lifestyle.Singleton);
     }
   }
 }

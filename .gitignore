@@ -1,5 +1,3 @@
 /.vs/
-/HostingWebapi.Infrastructure/bin/
-/HostingWebapi.Infrastructure/obj/
-/Tests/TestService/bin/
-/Tests/TestService/obj/
+bin/
+obj/

@@ -7,6 +7,7 @@ using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
 using System.Reflection;
 using System.Collections.Generic;
+using System;
 
 namespace HostingWebapi.Infrastructure.SimpleInjector
 {
@@ -32,7 +33,7 @@ namespace HostingWebapi.Infrastructure.SimpleInjector
       container.RegisterMvcViewComponents(app);
 
       // NOTE: Add application services. For instance:
-      container.RegisterPackages(new List<Assembly>() { rootAssembly });
+      container.RegisterPackages(AppDomain.CurrentDomain.GetAssemblies());
 
       // Allow Simple Injector to resolve services from ASP.NET Core.
       container.AutoCrossWireAspNetComponents(app);
