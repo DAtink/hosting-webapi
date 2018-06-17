@@ -1,16 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using TestService.Logics;
 
 namespace TestService.Controllers
 {
   [Route("api/[controller]")]
   public class TestController : Controller
   {
+    private readonly ITestLogics _logics;
+
+    public TestController(ITestLogics logics)
+    {
+      _logics = logics;
+    }
+
     // GET api/values
     [HttpGet("")]
-    public IEnumerable<string> Get()
+    public string Get()
     {
-      return new string[] { "value1", "value2" };
+      return _logics.GetMessage();
     }
   }
 }

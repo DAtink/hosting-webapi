@@ -47,7 +47,7 @@ namespace HostingWebapi.Infrastructure
 
     private void ConfigureApp(IApplicationBuilder app)
     {
-      app.InitializeContainer(_container);
+      app.InitializeContainer(_container, _serviceAssembly);
 
       // NOTE: Add custom middleware
       // app.UseMiddleware<CustomMiddleware1>(container);
