@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{90D91A70
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestService", "Tests\TestService\TestService.csproj", "{AD95C5F2-593C-4DA0-BB93-80FD58AF4747}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLogics", "TestLogics\TestLogics.csproj", "{81A9AE11-B89C-427C-B69E-49364251BE79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLogics", "Tests\TestLogics\TestLogics.csproj", "{81A9AE11-B89C-427C-B69E-49364251BE79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,5 +1,4 @@
 ﻿using HostingWebapi.Infrastructure;
-using Microsoft.AspNetCore.Hosting;
 
 namespace TestService
 {
@@ -7,7 +6,7 @@ namespace TestService
   {
     static void Main(string[] args)
     {
-      HostBuilder.Create().BuildWebHost(args).Run();
+      HostBuilder.Create().BuildAndRun(args);
     }
   }
 }

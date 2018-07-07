@@ -1,11 +1,16 @@
-﻿using HostingWebapi.Infrastructure.SimpleInjector;
+﻿using HostingWebapi.Infrastructure.Middleware;
+using HostingWebapi.Infrastructure.SimpleInjector;
 using HostingWebapi.Infrastructure.Swagger;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.WindowsServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleInjector;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace HostingWebapi.Infrastructure
@@ -50,8 +55,7 @@ namespace HostingWebapi.Infrastructure
       app.InitializeContainer(_container, _serviceAssembly);
 
       // NOTE: Add custom middleware
-      // app.UseMiddleware<CustomMiddleware1>(container);
-      // app.UseMiddleware<CustomMiddleware2>(container);
+      app.UseMiddleware<LoggingMiddleware>(_container);
 
       _container.Verify();
 
@@ -60,17 +64,33 @@ namespace HostingWebapi.Infrastructure
       app.UseStaticFiles();
 
       // Swagger
-      app.UseSwagger();
+      app.ConfigureSwagger();
     }
 
     public IWebHost BuildWebHost(string[] args)
     {
+      var pathToExe = Process.GetCurrentProcess().MainModule.FileName;
+      var pathToContentRoot = Path.GetDirectoryName(pathToExe);
+
       return WebHost.CreateDefaultBuilder(args)
           .UseKestrel()
+          .UseContentRoot(pathToContentRoot)
           .ConfigureAppConfiguration(ConfigureAppConfiguration)
           .ConfigureServices(ConfigureServices)
           .Configure(ConfigureApp)
           .Build();
+    }
+
+    public void BuildAndRun(string[] args)
+    {
+      var webHost = BuildWebHost(args);
+      if (args.Contains("--install"))
+      {
+        webHost.RunAsService();
+        return;
+      }
+
+      webHost.Run();
     }
   }
 }

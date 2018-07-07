@@ -6,7 +6,7 @@ namespace HostingWebapi.Infrastructure.Swagger
 {
   public static class SwaggerConfigurator
   {
-    public static void Configure(this IApplicationBuilder app)
+    public static void ConfigureSwagger(this IApplicationBuilder app)
     {
       app.UseSwagger();
       app.UseSwaggerUI(c =>

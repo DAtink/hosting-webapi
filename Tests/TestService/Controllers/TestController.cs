@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TestLogics.Logics;
+using TestService.Dto;
 
 namespace TestService.Controllers
 {
@@ -7,17 +8,25 @@ namespace TestService.Controllers
   public class TestController : Controller
   {
     private readonly ITestLogics _logics;
+    private readonly IExternal _external;
 
-    public TestController(ITestLogics logics)
+    public TestController(ITestLogics logics, IExternal external)
     {
       _logics = logics;
+      _external = external;
     }
 
-    // GET api/values
     [HttpGet("")]
     public string Get()
     {
       return _logics.GetMessage();
+    }
+
+    [HttpPost("")]
+    public TestForm Post([FromBody] TestForm form)
+    {
+      _external.ExternalFunction();
+      return form;
     }
   }
 }

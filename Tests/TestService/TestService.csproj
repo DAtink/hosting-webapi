@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Dto\TestForm.cs" />
     <Compile Include="External\External.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -50,13 +51,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="NLog.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\HostingWebapi.Infrastructure\HostingWebapi.Infrastructure.csproj">
       <Project>{f9bc90a8-3c68-4553-a210-5054ff3a8b7e}</Project>
       <Name>HostingWebapi.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TestLogics\TestLogics.csproj">
+    <ProjectReference Include="..\TestLogics\TestLogics.csproj">
       <Project>{81a9ae11-b89c-427c-b69e-49364251be79}</Project>
       <Name>TestLogics</Name>
     </ProjectReference>

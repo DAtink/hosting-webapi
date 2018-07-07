@@ -6,7 +6,6 @@ using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
 using System.Reflection;
-using System.Collections.Generic;
 using System;
 
 namespace HostingWebapi.Infrastructure.SimpleInjector
