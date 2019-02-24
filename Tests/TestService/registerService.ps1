@@ -1,0 +1,1 @@
+msbuild TestService.csproj /property:Configuration=Release

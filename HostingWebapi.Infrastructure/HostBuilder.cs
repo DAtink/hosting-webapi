@@ -7,11 +7,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.WindowsServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using SimpleInjector;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
+using System.Text;
 
 namespace HostingWebapi.Infrastructure
 {
@@ -47,6 +51,29 @@ namespace HostingWebapi.Infrastructure
 
       services.AddSwagger();
 
+      const string jwtSchemeName = "JwtBearer";
+      services
+          .AddAuthentication(options => {
+            options.DefaultAuthenticateScheme = jwtSchemeName;
+            options.DefaultChallengeScheme = jwtSchemeName;
+          })
+          .AddJwtBearer(jwtSchemeName, jwtBearerOptions => {
+            jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+            {
+              ValidateIssuerSigningKey = true,
+              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("IcdbWillNeverDie")),
+
+              ValidateIssuer = true,
+              ValidIssuer = "DemoApp",
+
+              ValidateAudience = true,
+              ValidAudience = "DemoAppClient",
+
+              ValidateLifetime = true,
+              ClockSkew = TimeSpan.FromSeconds(5)
+            };
+          });
+
       services.IntegrateSimpleInjector(_container);
     }
 
@@ -58,6 +85,8 @@ namespace HostingWebapi.Infrastructure
       app.UseMiddleware<LoggingMiddleware>(_container);
 
       _container.Verify();
+
+      app.UseAuthentication();
 
       // ASP.NET default stuff here
       app.UseMvcWithDefaultRoute();
@@ -73,7 +102,7 @@ namespace HostingWebapi.Infrastructure
       var pathToContentRoot = Path.GetDirectoryName(pathToExe);
 
       return WebHost.CreateDefaultBuilder(args)
-          .UseKestrel()
+          .UseKestrel(o => o.Listen(IPAddress.Loopback, 5005))
           .UseContentRoot(pathToContentRoot)
           .ConfigureAppConfiguration(ConfigureAppConfiguration)
           .ConfigureServices(ConfigureServices)
